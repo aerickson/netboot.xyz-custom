@@ -24,6 +24,7 @@ goto custom_exit
 echo Using Ubuntu 18.04 Installer...
 # kernel http://your-server/ubuntu-1804/install/netboot/ubuntu-installer/amd64/linux auto=true priority=critical vga=788 initrd=initrd.gz --- quiet
 # initrd http://your-server/ubuntu-1804/install/netboot/ubuntu-installer/amd64/initrd.gz
+# WORKING
 kernel http://archive.ubuntu.com/ubuntu/dists/bionic/main/installer-amd64/current/images/netboot/ubuntu-installer/amd64/linux auto=true priority=critical vga=788 initrd=initrd.gz ---
 initrd http://archive.ubuntu.com/ubuntu/dists/bionic/main/installer-amd64/current/images/netboot/ubuntu-installer/amd64/initrd.gz
 boot || goto custom_exit
