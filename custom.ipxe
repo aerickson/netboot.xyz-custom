@@ -36,8 +36,8 @@ boot || goto custom_exit
 echo Using Ubuntu 18.04 Installer...
 # kernel http://your-server/ubuntu-1804/install/netboot/ubuntu-installer/amd64/linux auto=true priority=critical vga=788 initrd=initrd.gz --- quiet
 # initrd http://your-server/ubuntu-1804/install/netboot/ubuntu-installer/amd64/initrd.gz
-kernel https://releases.ubuntu.com/24.04/netboot/amd64/linux auto=true priority=critical vga=788 initrd=initrd.gz ---
-initrd https://releases.ubuntu.com/24.04/netboot/amd64/initrd.gz
+kernel https://releases.ubuntu.com/18.04/netboot/amd64/linux auto=true priority=critical vga=788 initrd=initrd.gz ---
+initrd https://releases.ubuntu.com/18.04/netboot/amd64/initrd.gz
 boot || goto custom_exit
 
 # use data.srv.releng.mdc1.mozilla.com
