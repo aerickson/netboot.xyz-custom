@@ -59,8 +59,11 @@ echo Using Ubuntu 18.04 with Preseed...
 # our hosted files
 # kernel http://data.srv.releng.mdc1.mozilla.com/repos/kickstart/u18.linux auto=true priority=critical vga=788 url=http://data.srv.releng.mdc1.mozilla.com/repos/kickstart/ubuntu_18.04_x64_moonshot.preseed DEBCONF_DEBUG=5 ---
 # initrd http://data.srv.releng.mdc1.mozilla.com/repos/kickstart/u18.initrd.gz
-# with better options
-kernel http://data.srv.releng.mdc1.mozilla.com/repos/kickstart/u18.linux modprobe.blacklist=ahci inst.dd auto=true url=http://data.srv.releng.mdc1.mozilla.com/repos/kickstart/ubuntu_18.04_x64_moonshot.preseed priority=critical interface=auto
+# with better options. didn't work.
+# kernel http://data.srv.releng.mdc1.mozilla.com/repos/kickstart/u18.linux modprobe.blacklist=ahci inst.dd auto=true url=http://data.srv.releng.mdc1.mozilla.com/repos/kickstart/ubuntu_18.04_x64_moonshot.preseed priority=critical interface=auto
+# initrd http://data.srv.releng.mdc1.mozilla.com/repos/kickstart/u18.initrd.gz
+# based on working installer from above
+kernel http://data.srv.releng.mdc1.mozilla.com/repos/kickstart/u18.linux auto=true priority=critical vga=788 initrd=u18.initrd.gz auto=true url=http://data.srv.releng.mdc1.mozilla.com/repos/kickstart/ubuntu_18.04_x64_moonshot.preseed priority=critical interface=auto ---
 initrd http://data.srv.releng.mdc1.mozilla.com/repos/kickstart/u18.initrd.gz
 boot || goto custom_exit
 
