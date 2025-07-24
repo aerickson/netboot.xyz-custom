@@ -85,8 +85,10 @@ boot || goto custom_exit
 :ubuntu2404-installer
 echo Using Ubuntu 24.04 Installer...
 # try using cached assets from netboot.xyz
-kernel http://releng-pxe1.test.releng.mdc1.mozilla.com/ubuntu-squash/releases/download/24.04.2-dac09526/vmlinuz
-initrd http://releng-pxe1.test.releng.mdc1.mozilla.com/ubuntu-squash/releases/download/24.04.2-dac09526/initrd
+# kernel http://releng-pxe1.test.releng.mdc1.mozilla.com/ubuntu-squash/releases/download/24.04.2-dac09526/vmlinuz
+# initrd http://releng-pxe1.test.releng.mdc1.mozilla.com/ubuntu-squash/releases/download/24.04.2-dac09526/initrd
+initrd https://releases.ubuntu.com/24.04/netboot/amd64/initrd
+kernel https://releases.ubuntu.com/24.04/netboot/amd64/linux
 boot || goto custom_exit
 
 :ubuntu2404-autoinstall
