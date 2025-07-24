@@ -22,8 +22,6 @@ goto custom_exit
 # from archive.ubuntu.com
 :ubuntu1804-ubuntu
 echo Using Ubuntu 18.04 Installer...
-# kernel http://your-server/ubuntu-1804/install/netboot/ubuntu-installer/amd64/linux auto=true priority=critical vga=788 initrd=initrd.gz --- quiet
-# initrd http://your-server/ubuntu-1804/install/netboot/ubuntu-installer/amd64/initrd.gz
 # WORKING
 kernel http://archive.ubuntu.com/ubuntu/dists/bionic/main/installer-amd64/current/images/netboot/ubuntu-installer/amd64/linux auto=true priority=critical vga=788 initrd=initrd.gz ---
 initrd http://archive.ubuntu.com/ubuntu/dists/bionic/main/installer-amd64/current/images/netboot/ubuntu-installer/amd64/initrd.gz
@@ -33,8 +31,7 @@ boot || goto custom_exit
 # use data.srv.releng.mdc1.mozilla.com
 :ubuntu1804-data.mdc1
 echo Using Ubuntu 18.04 Installer...
-# kernel http://your-server/ubuntu-1804/install/netboot/ubuntu-installer/amd64/linux auto=true priority=critical vga=788 initrd=initrd.gz --- quiet
-# initrd http://your-server/ubuntu-1804/install/netboot/ubuntu-installer/amd64/initrd.gz
+# WORKING: needed to fix initrd= to correct name
 kernel http://data.srv.releng.mdc1.mozilla.com/repos/kickstart/u18.linux auto=true priority=critical vga=788 initrd=u18.initrd.gz ---
 initrd http://data.srv.releng.mdc1.mozilla.com/repos/kickstart/u18.initrd.gz
 boot || goto custom_exit
@@ -49,8 +46,6 @@ boot || goto custom_exit
 #     kernel_name: linux
 #     initrd_name: initrd.gz
 #     append: 'auto=true url=http://data.srv.releng.mdc1.mozilla.com/repos/kickstart/ubuntu_18.04_x64_moonshot.preseed priority=critical interface=auto'
-
-
 
 # 1804 preseed
 :ubuntu1804-preseed
