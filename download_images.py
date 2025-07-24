@@ -9,6 +9,8 @@ import re
 import requests
 import argparse
 from urllib.parse import urlparse
+import email.utils
+import time
 
 def extract_ubuntu_release(url):
     """
@@ -104,12 +106,41 @@ def download_images(ipxe_file, images_dir, dry_run=False):
             print(f'DRY RUN: Would download {url} to {file_path}')
             continue
 
+        # Check if file exists and compare size/date
+        need_download = True
+        if os.path.exists(file_path):
+            # Get local file size and mtime
+            local_size = os.path.getsize(file_path)
+            local_mtime = os.path.getmtime(file_path)
+
+            # Get remote headers
+            head = requests.head(url, allow_redirects=True)
+            remote_size = int(head.headers.get('Content-Length', -1))
+            remote_mtime = head.headers.get('Last-Modified')
+            remote_mtime_epoch = None
+            if remote_mtime:
+                remote_mtime_epoch = time.mktime(email.utils.parsedate(remote_mtime))
+
+            # Compare size and date
+            size_matches = (remote_size == -1 or local_size == remote_size)
+            date_matches = (remote_mtime_epoch is None or abs(local_mtime - remote_mtime_epoch) < 2)
+            if size_matches and date_matches:
+                print(f'Skipping {url}: local file is up to date.')
+                need_download = False
+
+        if not need_download:
+            continue
+
         # Download the file
         response = requests.get(url)
         if response.status_code == 200:
             with open(file_path, 'wb') as f:
                 f.write(response.content)
             print(f'Downloaded {url} to {file_path}')
+            # Optionally update mtime to match remote
+            if response.headers.get('Last-Modified'):
+                remote_mtime_epoch = time.mktime(email.utils.parsedate(response.headers['Last-Modified']))
+                os.utime(file_path, (remote_mtime_epoch, remote_mtime_epoch))
         else:
             print(f'Failed to download {url}: {response.status_code}')
 
