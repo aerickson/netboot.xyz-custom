@@ -148,7 +148,7 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Download images from custom.ipxe URLs.")
     parser.add_argument('--dry-run', '-d', action='store_true', help='Print URLs and destinations without downloading')
     parser.add_argument('--ipxe-file', default='custom.ipxe', help='Path to your custom.ipxe file')
-    parser.add_argument('--images-dir', default='images', help='Directory where images will be saved')
+    parser.add_argument('--images-dir', default='boot_files', help='Directory where images will be saved')
     args = parser.parse_args()
 
     download_images(args.ipxe_file, args.images_dir, dry_run=args.dry_run)
