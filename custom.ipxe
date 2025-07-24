@@ -41,7 +41,7 @@ kernel http://archive.ubuntu.com/ubuntu/dists/bionic/main/installer-amd64/curren
 initrd http://archive.ubuntu.com/ubuntu/dists/bionic/main/installer-amd64/current/images/netboot/ubuntu-installer/amd64/initrd.gz
 boot || goto custom_exit
 
-:2404-installer
+:ubuntu2404-installer
 echo Using Ubuntu 24.04 Installer...
 # try using cached assets from netboot.xyz
 kernel http://releng-pxe1.test.releng.mdc1.mozilla.com/ubuntu-squash/releases/download/24.04.2-dac09526/vmlinuz
