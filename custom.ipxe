@@ -9,6 +9,7 @@ menu RELOPS netboot.xyz Server
 item --gap Ubuntu 18.04
 item ubuntu1804-preseed ${space} Image with Preseed
 item ubuntu1804-installer ${space} Run Installer
+item ubuntu1804-installer2 ${space} Run Installer
 item --gap Ubuntu 24.04
 item ubuntu2404-autoinstall ${space} Image with Autoinstall
 item ubuntu2404-installer ${space} Run Installer
@@ -17,6 +18,25 @@ echo ${cls}
 goto ${custom_choice}
 goto custom_exit
 
+
+# 1804 installer
+:ubuntu1804-installer
+echo Using Ubuntu 18.04 Installer...
+# kernel http://your-server/ubuntu-1804/install/netboot/ubuntu-installer/amd64/linux auto=true priority=critical vga=788 initrd=initrd.gz --- quiet
+# initrd http://your-server/ubuntu-1804/install/netboot/ubuntu-installer/amd64/initrd.gz
+kernel http://archive.ubuntu.com/ubuntu/dists/bionic/main/installer-amd64/current/images/netboot/ubuntu-installer/amd64/linux auto=true priority=critical vga=788 initrd=initrd.gz ---
+initrd http://archive.ubuntu.com/ubuntu/dists/bionic/main/installer-amd64/current/images/netboot/ubuntu-installer/amd64/initrd.gz
+boot || goto custom_exit
+
+# TODO: try from https://releases.ubuntu.com/24.04/netboot/amd64/
+
+:ubuntu1804-installer2
+echo Using Ubuntu 18.04 Installer...
+# kernel http://your-server/ubuntu-1804/install/netboot/ubuntu-installer/amd64/linux auto=true priority=critical vga=788 initrd=initrd.gz --- quiet
+# initrd http://your-server/ubuntu-1804/install/netboot/ubuntu-installer/amd64/initrd.gz
+kernel https://releases.ubuntu.com/24.04/netboot/amd64/linux auto=true priority=critical vga=788 initrd=initrd.gz ---
+initrd https://releases.ubuntu.com/24.04/netboot/amd64/initrd.gz
+boot || goto custom_exit
 
 # working entry from IT pxe server
 #
@@ -28,6 +48,7 @@ goto custom_exit
 #     kernel_name: linux
 #     initrd_name: initrd.gz
 #     append: 'auto=true url=http://data.srv.releng.mdc1.mozilla.com/repos/kickstart/ubuntu_18.04_x64_moonshot.preseed priority=critical interface=auto'
+
 
 
 # 1804 preseed
@@ -48,14 +69,7 @@ initrd http://data.srv.releng.mdc1.mozilla.com/repos/kickstart/u18.initrd.gz
 boot || goto custom_exit
 
 
-# 1804 installer
-:ubuntu1804-installer
-echo Using Ubuntu 18.04 Installer...
-# kernel http://your-server/ubuntu-1804/install/netboot/ubuntu-installer/amd64/linux auto=true priority=critical vga=788 initrd=initrd.gz --- quiet
-# initrd http://your-server/ubuntu-1804/install/netboot/ubuntu-installer/amd64/initrd.gz
-kernel http://archive.ubuntu.com/ubuntu/dists/bionic/main/installer-amd64/current/images/netboot/ubuntu-installer/amd64/linux auto=true priority=critical vga=788 initrd=initrd.gz ---
-initrd http://archive.ubuntu.com/ubuntu/dists/bionic/main/installer-amd64/current/images/netboot/ubuntu-installer/amd64/initrd.gz
-boot || goto custom_exit
+
 
 :ubuntu2404-installer
 echo Using Ubuntu 24.04 Installer...
@@ -63,6 +77,12 @@ echo Using Ubuntu 24.04 Installer...
 kernel http://releng-pxe1.test.releng.mdc1.mozilla.com/ubuntu-squash/releases/download/24.04.2-dac09526/vmlinuz
 initrd http://releng-pxe1.test.releng.mdc1.mozilla.com/ubuntu-squash/releases/download/24.04.2-dac09526/initrd
 boot || goto custom_exit
+
+:ubuntu2404-autoinstall
+echo Using Ubuntu 24.04 with Autoinstall...
+echo "Not implemented yet."
+sleep 15
+goto custom_exit
 
 # :option_one
 # kernel http://path.to/vmlinuz
