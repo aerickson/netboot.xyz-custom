@@ -34,13 +34,19 @@ boot || goto custom_exit
 
 # 1804 installer
 :ubuntu1804-installer
-echo Using Ubuntu 18.04 with Preseed...
+echo Using Ubuntu 18.04 Installer...
 # kernel http://your-server/ubuntu-1804/install/netboot/ubuntu-installer/amd64/linux auto=true priority=critical vga=788 initrd=initrd.gz --- quiet
 # initrd http://your-server/ubuntu-1804/install/netboot/ubuntu-installer/amd64/initrd.gz
 kernel http://archive.ubuntu.com/ubuntu/dists/bionic/main/installer-amd64/current/images/netboot/ubuntu-installer/amd64/linux auto=true priority=critical vga=788 initrd=initrd.gz ---
 initrd http://archive.ubuntu.com/ubuntu/dists/bionic/main/installer-amd64/current/images/netboot/ubuntu-installer/amd64/initrd.gz
 boot || goto custom_exit
 
+:2404-installer
+echo Using Ubuntu 24.04 Installer...
+# try using cached assets from netboot.xyz
+kernel http://releng-pxe1.test.releng.mdc1.mozilla.com/ubuntu-squash/releases/download/24.04.2-dac09526/vmlinuz
+initrd http://releng-pxe1.test.releng.mdc1.mozilla.com/ubuntu-squash/releases/download/24.04.2-dac09526/initrd
+boot || goto custom_exit
 
 # :option_one
 # kernel http://path.to/vmlinuz
