@@ -8,9 +8,8 @@ clear custom_choice
 menu RELOPS netboot.xyz Server
 item --gap Ubuntu 18.04
 item ubuntu1804-preseed ${space} Image with Preseed
-item ubuntu1804-installer ${space} Run Installer - archive.ubuntu.com
-item ubuntu1804-installer2 ${space} Run Installer - releases.ubuntu.com
-item ubuntu1804-installer3 ${space} Run Installer - MDC1
+item ubuntu1804-ubuntu ${space} Run Installer - archive.ubuntu.com
+item ubuntu1804-data.mdc1 ${space} Run Installer - MDC1
 item --gap Ubuntu 24.04
 item ubuntu2404-autoinstall ${space} Image with Autoinstall
 item ubuntu2404-installer ${space} Run Installer
@@ -21,7 +20,7 @@ goto custom_exit
 
 
 # from archive.ubuntu.com
-:ubuntu1804-installer
+:ubuntu1804-ubuntu
 echo Using Ubuntu 18.04 Installer...
 # kernel http://your-server/ubuntu-1804/install/netboot/ubuntu-installer/amd64/linux auto=true priority=critical vga=788 initrd=initrd.gz --- quiet
 # initrd http://your-server/ubuntu-1804/install/netboot/ubuntu-installer/amd64/initrd.gz
@@ -31,21 +30,12 @@ initrd http://archive.ubuntu.com/ubuntu/dists/bionic/main/installer-amd64/curren
 boot || goto custom_exit
 
 
-# using https://releases.ubuntu.com/24.04/netboot/amd64/
-:ubuntu1804-installer2
-echo Using Ubuntu 18.04 Installer...
-# kernel http://your-server/ubuntu-1804/install/netboot/ubuntu-installer/amd64/linux auto=true priority=critical vga=788 initrd=initrd.gz --- quiet
-# initrd http://your-server/ubuntu-1804/install/netboot/ubuntu-installer/amd64/initrd.gz
-kernel https://releases.ubuntu.com/18.04/netboot/amd64/linux auto=true priority=critical vga=788 initrd=initrd.gz ---
-initrd https://releases.ubuntu.com/18.04/netboot/amd64/initrd.gz
-boot || goto custom_exit
-
 # use data.srv.releng.mdc1.mozilla.com
-:ubuntu1804-installer3
+:ubuntu1804-data.mdc1
 echo Using Ubuntu 18.04 Installer...
 # kernel http://your-server/ubuntu-1804/install/netboot/ubuntu-installer/amd64/linux auto=true priority=critical vga=788 initrd=initrd.gz --- quiet
 # initrd http://your-server/ubuntu-1804/install/netboot/ubuntu-installer/amd64/initrd.gz
-kernel http://data.srv.releng.mdc1.mozilla.com/repos/kickstart/u18.linux auto=true priority=critical vga=788 initrd=initrd.gz ---
+kernel http://data.srv.releng.mdc1.mozilla.com/repos/kickstart/u18.linux auto=true priority=critical vga=788 initrd=u18.initrd.gz ---
 initrd http://data.srv.releng.mdc1.mozilla.com/repos/kickstart/u18.initrd.gz
 boot || goto custom_exit
 
