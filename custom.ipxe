@@ -88,6 +88,7 @@ boot || goto custom_exit
 
 :ubuntu2404-installer2
 echo Using Ubuntu 24.04 Installer...
+# NOT WORKING: files don't exist
 chain 2404.ipxe || goto custom
 
 :ubuntu2404-autoinstall
