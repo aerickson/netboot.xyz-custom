@@ -1,0 +1,14 @@
+
+set mirror http://releases.ubuntu.com
+set base_dir ubuntu
+set codename jammy
+set version_number 24.04
+set os_arch amd64
+set mirrorcfg mirror/suite=${ubuntu_version}
+set dir ${mirror}/${base_dir}/dists/${version}/main/installer-${arch}/current/images/netboot
+set ubuntu_iso_url http://releases.ubuntu.com/${codename}/ubuntu-${version_number}-live-server-${os_arch}.iso
+set install_params autoinstall ip=dhcp ds=nocloud-net;s=http://my.autoinstall.com/ url=${ubuntu_iso_url}
+
+kernel ${dir}/linux ${install_params} ${mirrorcfg} -- quiet initrd=initrd.gz
+initrd ${dir}/initrd.gz
+boot

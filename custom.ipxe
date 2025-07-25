@@ -13,6 +13,7 @@ item ubuntu1804-data.mdc1 ${space} Run Installer - MDC1
 item --gap Ubuntu 24.04
 item ubuntu2404-autoinstall ${space} Image with Autoinstall
 item ubuntu2404-installer ${space} Run Installer
+item ubuntu2404-installer2 ${space} Run Installer - Advanced
 choose custom_choice || goto custom_exit
 echo ${cls}
 goto ${custom_choice}
@@ -69,6 +70,8 @@ boot || goto custom_exit
 # | | | | (_) | |_) | |  __/
 # |_| |_|\___/|_.__/|_|\___|
 
+# see https://netboot.xyz/docs/kb/pxe/ubuntu/ for more info
+
 :ubuntu2404-installer
 echo Using Ubuntu 24.04 Installer...
 # try using cached assets from netboot.xyz
@@ -77,6 +80,10 @@ echo Using Ubuntu 24.04 Installer...
 initrd https://releases.ubuntu.com/24.04/netboot/amd64/initrd
 kernel https://releases.ubuntu.com/24.04/netboot/amd64/linux
 boot || goto custom_exit
+
+:ubuntu2404-installer2
+echo Using Ubuntu 24.04 Installer...
+chain 2404.ipxe || goto custom
 
 :ubuntu2404-autoinstall
 echo Using Ubuntu 24.04 with Autoinstall...
