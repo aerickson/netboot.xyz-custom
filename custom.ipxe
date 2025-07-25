@@ -82,11 +82,11 @@ echo Using Ubuntu 24.04 Installer...
 #
 # use netboot.xyz's ubuntu-squash release
 #   get latest versions from https://github.com/netbootxyz/ubuntu-squash/releases?q=noble&expanded=true
-initrd https://github.com/netbootxyz/ubuntu-squash/releases/download/20240715-noble-48403403/initrd
+initrd https://github.com/netbootxyz/ubuntu-squash/releases/download/24.04.2-dac09526/initrd
 # not working
 # kernel https://github.com/netbootxyz/ubuntu-squash/releases/download/20240715-noble-48403403/vmlinuz root=/dev/ram0 ramdisk_size=1500000 cloud-config-url=/dev/null ip=dhcp url=http://cdimage.ubuntu.com/ubuntu-server/noble/daily-live/current/noble-live-server-amd64.iso
 # different options
-kernel https://github.com/netbootxyz/ubuntu-squash/releases/download/20240715-noble-48403403/vmlinuz root=/dev/ram0 ramdisk_size=1500000 ip=dhcp initrd=initrd
+kernel https://github.com/netbootxyz/ubuntu-squash/releases/download/24.04.2-dac09526/vmlinuz root=/dev/ram0 ramdisk_size=1500000 ip=dhcp initrd=initrd
 boot || goto custom_exit
 
 
