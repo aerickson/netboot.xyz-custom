@@ -74,18 +74,10 @@ boot || goto custom_exit
 
 :ubuntu2404-installer
 echo Using Ubuntu 24.04 Installer...
-# try using cached assets from netboot.xyz
-# kernel http://releng-pxe1.test.releng.mdc1.mozilla.com/ubuntu-squash/releases/download/24.04.2-dac09526/vmlinuz
-# initrd http://releng-pxe1.test.releng.mdc1.mozilla.com/ubuntu-squash/releases/download/24.04.2-dac09526/initrd
-# initrd https://releases.ubuntu.com/24.04/netboot/amd64/initrd
-# kernel https://releases.ubuntu.com/24.04/netboot/amd64/linux
-#
 # use netboot.xyz's ubuntu-squash release
 #   get latest versions from https://github.com/netbootxyz/ubuntu-squash/releases?q=24.04&expanded=true
-# not working
-# kernel https://github.com/netbootxyz/ubuntu-squash/releases/download/20240715-noble-48403403/vmlinuz root=/dev/ram0 ramdisk_size=1500000 cloud-config-url=/dev/null ip=dhcp url=http://cdimage.ubuntu.com/ubuntu-server/noble/daily-live/current/noble-live-server-amd64.iso
-# different options
-#  removed: initrd=initrd root=/dev/ram0 ramdisk_size=1500000 ip=dhcp ramdisk_size=3500000
+# NOT WORKING: freezes around loading certs in dmesg output
+#   - not sure why. kernel options were pulled from netboot.xyz's ubuntu 24.04 entry that works
 kernel https://github.com/netbootxyz/ubuntu-squash/releases/download/24.04.2-dac09526/vmlinuz root=/dev/ram0 ramdisk_size=3500000 cloud-config-url=/dev/null ip=dhcp url=http://releases.ubuntu.com/noble/ubuntu-24.04.2-live-server-amd64.iso initrd=initrd.magic
 initrd https://github.com/netbootxyz/ubuntu-squash/releases/download/24.04.2-dac09526/initrd
 boot || goto custom_exit
