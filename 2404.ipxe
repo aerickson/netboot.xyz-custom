@@ -1,7 +1,7 @@
 
 set mirror http://releases.ubuntu.com
 set base_dir ubuntu
-set codename jammy
+set codename noble
 set version_number 24.04
 set os_arch amd64
 set mirrorcfg mirror/suite=${ubuntu_version}
