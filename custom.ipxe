@@ -12,7 +12,7 @@ item ubuntu1804-ubuntu ${space} Run Installer - archive.ubuntu.com
 item ubuntu1804-data.mdc1 ${space} Run Installer - MDC1
 item --gap Ubuntu 24.04
 # item ubuntu2404-autoinstall ${space} Image with Autoinstall
-item ubuntu2404-installer ${space} Run Installer
+item ubuntu2404-installer ${space} Run Installer - Try 45
 # item ubuntu2404-installer2 ${space} Run Installer - Advanced
 choose custom_choice || goto custom_exit
 echo ${cls}
@@ -82,12 +82,16 @@ echo Using Ubuntu 24.04 Installer...
 #
 # use netboot.xyz's ubuntu-squash release
 #   get latest versions from https://github.com/netbootxyz/ubuntu-squash/releases?q=noble&expanded=true
-initrd https://github.com/netbootxyz/ubuntu-squash/releases/download/24.04.2-dac09526/initrd
+# initrd https://github.com/netbootxyz/ubuntu-squash/releases/download/24.04.2-dac09526/initrd
 # not working
 # kernel https://github.com/netbootxyz/ubuntu-squash/releases/download/20240715-noble-48403403/vmlinuz root=/dev/ram0 ramdisk_size=1500000 cloud-config-url=/dev/null ip=dhcp url=http://cdimage.ubuntu.com/ubuntu-server/noble/daily-live/current/noble-live-server-amd64.iso
 # different options
 #  removed: initrd=initrd root=/dev/ram0 ramdisk_size=1500000 ip=dhcp
-kernel https://github.com/netbootxyz/ubuntu-squash/releases/download/24.04.2-dac09526/vmlinuz root=/dev/ram0 ramdisk_size=3500000 cloud-config-url=/dev/null ip=dhcp url=http://releases.ubuntu.com/noble/ubuntu-24.04.2-live-server-amd64.iso debian-installer/locale=en_US console-setup/layoutcode=us console=ttyS0,115200n8 console=tty0 --- quiet
+# kernel https://github.com/netbootxyz/ubuntu-squash/releases/download/24.04.2-dac09526/vmlinuz root=/dev/ram0 ramdisk_size=3500000 cloud-config-url=/dev/null ip=dhcp url=http://releases.ubuntu.com/noble/ubuntu-24.04.2-live-server-amd64.iso debian-installer/locale=en_US console-setup/layoutcode=us console=ttyS0,115200n8 console=tty0 --- quiet
+#
+# reset
+kernel http://cdimage.ubuntu.com/ubuntu-server/daily/current/noble/netboot/ubuntu-installer/amd64/linux root=/dev/ram0 ramdisk_size=3500000 ip=dhcp url=http://releases.ubuntu.com/noble/ubuntu-24.04.2-live-server-amd64.iso console=ttyS0,115200n8 console=tty0 ---
+initrd http://cdimage.ubuntu.com/ubuntu-server/daily/current/noble/netboot/ubuntu-installer/amd64/initrd.gz
 boot || goto custom_exit
 
 
