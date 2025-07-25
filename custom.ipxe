@@ -78,7 +78,7 @@ echo Using Ubuntu 24.04 Installer...
 #   get latest versions from https://github.com/netbootxyz/ubuntu-squash/releases?q=24.04&expanded=true
 # NOT WORKING: freezes around loading certs in dmesg output
 #   - not sure why. kernel options were pulled from netboot.xyz's ubuntu 24.04 entry that works
-kernel https://github.com/netbootxyz/ubuntu-squash/releases/download/24.04.2-dac09526/vmlinuz root=/dev/ram0 ramdisk_size=3500000 cloud-config-url=/dev/null ip=dhcp url=http://releases.ubuntu.com/noble/ubuntu-24.04.2-live-server-amd64.iso initrd=initrd.magic
+kernel https://github.com/netbootxyz/ubuntu-squash/releases/download/24.04.2-dac09526/vmlinuz root=/dev/ram0 ramdisk_size=3500000 cloud-config-url=/dev/null ip=dhcp url=http://releases.ubuntu.com/noble/ubuntu-24.04.2-live-server-amd64.iso initrd=initrd.magic console=tty0 console=ttyS0,115200n8
 initrd https://github.com/netbootxyz/ubuntu-squash/releases/download/24.04.2-dac09526/initrd
 boot || goto custom_exit
 
