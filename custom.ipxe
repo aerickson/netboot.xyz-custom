@@ -81,7 +81,7 @@ echo Using Ubuntu 24.04 Installer...
 # kernel https://releases.ubuntu.com/24.04/netboot/amd64/linux
 #
 # use netboot.xyz's ubuntu-squash release
-#   get latest versions from https://github.com/netbootxyz/ubuntu-squash/releases?q=noble&expanded=true
+#   get latest versions from https://github.com/netbootxyz/ubuntu-squash/releases?q=24.04&expanded=true
 # initrd https://github.com/netbootxyz/ubuntu-squash/releases/download/24.04.2-dac09526/initrd
 # not working
 # kernel https://github.com/netbootxyz/ubuntu-squash/releases/download/20240715-noble-48403403/vmlinuz root=/dev/ram0 ramdisk_size=1500000 cloud-config-url=/dev/null ip=dhcp url=http://cdimage.ubuntu.com/ubuntu-server/noble/daily-live/current/noble-live-server-amd64.iso
