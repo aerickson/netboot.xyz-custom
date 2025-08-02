@@ -20,6 +20,7 @@ item ubuntu2404-installer ${space} Run Installer - Remote (WORKING)
 # item ubuntu2404-installer4 ${space} Run Installer - MDC1
 item --gap Ubuntu 24.04 Desktop
 item ubuntu2404-desktop-installer ${space} Run Desktop Installer
+item ubuntu2404-desktop-installer2 ${space} Run Desktop Installer 2
 choose custom_choice || goto custom_exit
 echo ${cls}
 goto ${custom_choice}
@@ -168,6 +169,8 @@ set ubuntu_iso_url http://releng-pxe1.test.releng.mdc1.mozilla.com/ubuntu/ubuntu
 # kernel ${base_url}/linux root=/dev/ram0 ramdisk_size=1500000 cloud-config-url=/dev/null ip=dhcp url=${ubuntu_iso_url} nomodeset vga=normal console=tty0 loglevel=7 debug
 kernel ${base_url}/linux root=/dev/ram0 ramdisk_size=3500000 cloud-config-url=/dev/null ip=dhcp url=${ubuntu_iso_url} nomodeset fbcon=map:1 console=tty0 console=ttyS0,115200n8 loglevel=7 debug systemd.mask=plymouth-start.service
 initrd ${base_url}/initrd
-boot || goto custom_exit
+boot || goto custom
 
 
+:ubuntu2404-desktop-installer2
+chain 2404-desktop.ipxe || goto custom
