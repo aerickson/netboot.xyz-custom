@@ -1,7 +1,11 @@
 #!ipxe
-###
-### netboot.xyz-custom menu example
-###
+
+#                  _
+#  _ __ ___   __ _(_)_ __    _ __ ___   ___ _ __  _   _
+# | '_ ` _ \ / _` | | '_ \  | '_ ` _ \ / _ \ '_ \| | | |
+# | | | | | | (_| | | | | | | | | | | |  __/ | | | |_| |
+# |_| |_| |_|\__,_|_|_| |_| |_| |_| |_|\___|_| |_|\__,_|
+#
 
 :custom
 clear custom_choice
@@ -19,12 +23,32 @@ echo ${cls}
 goto ${custom_choice}
 goto custom_exit
 
+# :option_one
+# kernel http://path.to/vmlinuz
+# initrd http://path.to/initrd
+# imgargs vmlinuz put_kernel_img_args_here
+# boot || goto custom_exit
+
+# :option_two
+# kernel https://boot.netboot.xyz/memdisk raw iso
+# initrd http://path.to/iso
+# boot || goto custom_exit
+
+# :option_three
+# echo Chains into another menu...
+# chain https://raw.githubusercontent.com/${github_user}/netboot.xyz-custom/master/custom1.ipxe || goto custom
+
+:custom_exit
+chain utils.ipxe
+exit
+
 
 #  _     _             _
-# | |__ (_) ___  _ __ (_) ___
-# | '_ \| |/ _ \| '_ \| |/ __|
-# | |_) | | (_) | | | | | (__
-# |_.__/|_|\___/|_| |_|_|\___|
+# | |__ (_) ___  _ __ (_) ___      ___  ___ _ ____   _____ _ __
+# | '_ \| |/ _ \| '_ \| |/ __|____/ __|/ _ \ '__\ \ / / _ \ '__|
+# | |_) | | (_) | | | | | (_|_____\__ \  __/ |   \ V /  __/ |
+# |_.__/|_|\___/|_| |_|_|\___|    |___/\___|_|    \_/ \___|_|
+#
 
 # from archive.ubuntu.com
 :ubuntu1804-ubuntu
@@ -63,22 +87,30 @@ initrd http://data.srv.releng.mdc1.mozilla.com/repos/kickstart/u18.initrd.gz
 boot || goto custom_exit
 
 
-
 #              _     _
-#  _ __   ___ | |__ | | ___
-# | '_ \ / _ \| '_ \| |/ _ \
-# | | | | (_) | |_) | |  __/
-# |_| |_|\___/|_.__/|_|\___|
+#  _ __   ___ | |__ | | ___       ___  ___ _ ____   _____ _ __
+# | '_ \ / _ \| '_ \| |/ _ \_____/ __|/ _ \ '__\ \ / / _ \ '__|
+# | | | | (_) | |_) | |  __/_____\__ \  __/ |   \ V /  __/ |
+# |_| |_|\___/|_.__/|_|\___|     |___/\___|_|    \_/ \___|_|
+#
 
 # see https://netboot.xyz/docs/kb/pxe/ubuntu/ for more info
+
+# see https://askubuntu.com/questions/1513081/pxe-booting-ubuntu-24-04-lts-autoinstall
 
 :ubuntu2404-installer
 echo Using Ubuntu 24.04 Installer...
 # use netboot.xyz's ubuntu-squash release
 #   get latest versions from https://github.com/netbootxyz/ubuntu-squash/releases?q=24.04&expanded=true
+#
+# working installer was booted with: `root=/dev/ram0 ramdisk_size=3500000 cloud-config-url=/dev/null ip=dhcp url=http://releases.ubuntu.com/noble/ubuntu-24.04.2-live-server-amd64.iso initrd=initrd.magic`
+#
 # NOT WORKING: freezes around loading certs in dmesg output
 #   - not sure why. kernel options were pulled from netboot.xyz's ubuntu 24.04 entry that works
-kernel https://github.com/netbootxyz/ubuntu-squash/releases/download/24.04.2-dac09526/vmlinuz cloud-config-url=/dev/null ip=dhcp url=http://releases.ubuntu.com/noble/ubuntu-24.04.2-live-server-amd64.iso initrd=initrd.magic console=tty0 console=ttyS0,115200n8
+# kernel https://github.com/netbootxyz/ubuntu-squash/releases/download/24.04.2-dac09526/vmlinuz root=/dev/ram0 ramdisk_size=3500000 cloud-config-url=/dev/null ip=dhcp url=http://releases.ubuntu.com/noble/ubuntu-24.04.2-live-server-amd64.iso initrd=initrd.magic console=tty0 console=ttyS0,115200n8
+# local iso
+imgargs root=/dev/ram0 ramdisk_size=3500000 cloud-config-url=/dev/null ip=dhcp url=http://releng-pxe1.test.releng.mdc1.mozilla.com/ubuntu/ubuntu-24.04.2-live-server-amd64.iso initrd=initrd.magic console=tty0 console=ttyS0,115200n8
+kernel https://github.com/netbootxyz/ubuntu-squash/releases/download/24.04.2-dac09526/vmlinuz
 initrd https://github.com/netbootxyz/ubuntu-squash/releases/download/24.04.2-dac09526/initrd
 boot || goto custom_exit
 
@@ -94,21 +126,46 @@ echo "Not implemented yet."
 sleep 15
 goto custom_exit
 
-# :option_one
-# kernel http://path.to/vmlinuz
-# initrd http://path.to/initrd
-# imgargs vmlinuz put_kernel_img_args_here
+# from stack overflow, see link above
+# :ubuntu2404-autoinstall
+# set os_arch amd64
+# set codename noble
+# set version_number 24.04
+# set config http://yourwebserver/noble
+# set ubuntu_iso_url https://releases.ubuntu.com/24.04/ubuntu-24.04-live-server-amd64.iso
+#
+# kernel http://yourwebserver/noble/vmlinuz
+# initrd http://yourwebserver/noble/initrd
+# imgargs vmlinuz initrd=initrd ip=dhcp cloud-config-url=/dev/null url=${ubuntu_iso_url} autoinstall ds=nocloud-net;s=${config}
+# boot
+
+# :ubuntu2404-install-so1
+# kernel  /images/ubuntu24.04-server/vmlinuz root=/dev/ram0 ramdisk_size=1500000 autoinstall ip=dhcp cloud-config-url=http://192.168.X.Y/ks/user-data  url=http://192.168.X.Y/ubuntu22.04-server/ubuntu-24.04.1-live-server-amd64.iso ds=nocloud;s=http=//192.168.X.Y/
+# initrd  /images/ubuntu24.04-server/initrd
+
+#              _     _                    _           _    _
+#  _ __   ___ | |__ | | ___            __| | ___  ___| | _| |_ ___  _ __
+# | '_ \ / _ \| '_ \| |/ _ \  _____   / _` |/ _ \/ __| |/ / __/ _ \| '_ \
+# | | | | (_) | |_) | |  __/ |_____| | (_| |  __/\__ \   <| || (_) | |_) |
+# |_| |_|\___/|_.__/|_|\___|          \__,_|\___||___/_|\_\\__\___/| .__/
+#                                                                  |_|
+#
+
+# :ubuntu2404-desktop-installer
+# echo Using Ubuntu 24.04 Desktop Installer...
+# imgargs root=/dev/ram0 ramdisk_size=3500000 cloud-config-url=/dev/null ip=dhcp url=http://releng-pxe1.test.releng.mdc1.mozilla.com/ubuntu/ubuntu-24.04.2-live-server-amd64.iso initrd=initrd.magic console=tty0 console=ttyS0,115200n8
+# kernel https://github.com/netbootxyz/ubuntu-squash/releases/download/24.04.2-dac09526/vmlinuz
+# initrd https://github.com/netbootxyz/ubuntu-squash/releases/download/24.04.2-dac09526/initrd
 # boot || goto custom_exit
 
-# :option_two
-# kernel https://boot.netboot.xyz/memdisk raw iso
-# initrd http://path.to/iso
-# boot || goto custom_exit
+:ubuntu2404-desktop-installer
+echo Using Ubuntu 24.04 Desktop Installer...
+#  console=tty0 console=ttyS0,115200n8
+set base_url http://releng-pxe1.test.releng.mdc1.mozilla.com/manual_downloads/ubuntu-24.04.2-netboot-amd64
+set ubuntu_iso_url http://releng-pxe1.test.releng.mdc1.mozilla.com/ubuntu/ubuntu-24.04.2-live-server-amd64.iso
+imgargs root=/dev/ram0 ramdisk_size=3500000 cloud-config-url=/dev/null ip=dhcp url=${ubuntu_iso_url}
+kernel ${base_url}/linux
+initrd ${base_url}/initrd
+boot || goto custom_exit
 
-# :option_three
-# echo Chains into another menu...
-# chain https://raw.githubusercontent.com/${github_user}/netboot.xyz-custom/master/custom1.ipxe || goto custom
 
-:custom_exit
-chain utils.ipxe
-exit
