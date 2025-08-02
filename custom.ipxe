@@ -19,7 +19,7 @@ item --gap Ubuntu 24.04
 item ubuntu2404-installer ${space} Run Installer - Try 45
 # item ubuntu2404-installer2 ${space} Run Installer - Advanced
 item --gap Ubuntu 24.04 Desktop
-item ubuntu2404-desktop-installer-desktop ${space} Run Desktop Installer
+item ubuntu2404-desktop-installer ${space} Run Desktop Installer
 choose custom_choice || goto custom_exit
 echo ${cls}
 goto ${custom_choice}
