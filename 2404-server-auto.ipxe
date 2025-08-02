@@ -1,0 +1,33 @@
+#!ipxe
+
+# copy of netboot.xyz's 2404 installer
+# WORKING!
+
+# Set variables
+set arch amd64
+set codename noble
+set version_number 24.04.2
+set kernel_url https://github.com/netbootxyz/ubuntu-squash/releases/download/24.04.2-dac09526/
+set ubuntu_iso_url http://releases.ubuntu.com/${codename}/ubuntu-${version_number}-live-server-${arch}.iso
+set autoinstall_url https://raw.githubusercontent.com/mozilla-platform-ops/relops-infra/dcfb2fc98c561e564d3670b0f7b5809c6fd61c4b/ubuntu-autoinstall/2404.yaml
+
+# Optional: Detect DHCP and set netboot parameters
+isset ${dhcp-server} && set netboot_params ip=dhcp url=${ubuntu_iso_url} || set netboot_params
+
+# Clear any previous images
+imgfree
+
+# Boot message
+echo Booting Ubuntu ${codename} ${version_number} for ${arch} via Subiquity
+
+# Load kernel and initrd
+kernel ${kernel_url}vmlinuz root=/dev/ram0 ramdisk_size=3500000 cloud-config-url=/dev/null ${netboot_params} initrd=initrd.magic autoinstall ds=nocloud-net;s=${autoinstall_url}
+initrd ${kernel_url}initrd
+
+# Display checksums (optional)
+echo
+echo MD5sums:
+md5sum vmlinuz initrd
+
+# Boot the installer
+boot

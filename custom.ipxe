@@ -17,6 +17,7 @@ item ubuntu1804-ubuntu ${space} Run Installer - archive.ubuntu.com (WORKING)
 item ubuntu1804-data.mdc1 ${space} Run Installer - MDC1 (WORKING)
 item --gap Ubuntu 24.04 Server
 item ubuntu2404-installer ${space} Run Installer - Remote (WORKING)
+item ubuntu2404-autoinstall ${space} Run Autoinstall
 # item ubuntu2404-installer4 ${space} Run Installer - MDC1
 item --gap Ubuntu 24.04 Desktop
 item ubuntu2404-desktop-installer ${space} Run Desktop Installer
@@ -124,10 +125,8 @@ echo Using Ubuntu 24.04 Installer...
 chain 2404-server.ipxe || goto custom
 
 :ubuntu2404-autoinstall
-echo Using Ubuntu 24.04 with Autoinstall...
-echo "Not implemented yet."
-sleep 15
-goto custom_exit
+chain 2404-server-auto.ipxe || goto custom
+
 
 # from stack overflow, see link above
 # :ubuntu2404-autoinstall
