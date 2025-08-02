@@ -16,7 +16,7 @@ item ubuntu1804-preseed ${space} Image with Preseed (WORKING)
 item ubuntu1804-ubuntu ${space} Run Installer - archive.ubuntu.com (WORKING)
 item ubuntu1804-data.mdc1 ${space} Run Installer - MDC1 (WORKING)
 item --gap Ubuntu 24.04 Server
-item ubuntu2404-installer3 ${space} Run Installer - Remote (WORKING)
+item ubuntu2404-installer ${space} Run Installer - Remote (WORKING)
 # item ubuntu2404-installer4 ${space} Run Installer - MDC1
 item --gap Ubuntu 24.04 Desktop
 item ubuntu2404-desktop-installer ${space} Run Desktop Installer
@@ -117,15 +117,10 @@ initrd https://github.com/netbootxyz/ubuntu-squash/releases/download/24.04.2-dac
 boot || goto custom_exit
 
 
-:ubuntu2404-installer3
+:ubuntu2404-installer
 echo Using Ubuntu 24.04 Installer...
 # WORKING!!!
-chain 2404-2.ipxe || goto custom
-
-:ubuntu2404-installer2
-echo Using Ubuntu 24.04 Installer...
-# NOT WORKING: files don't exist
-chain 2404.ipxe || goto custom
+chain 2404-server.ipxe || goto custom
 
 :ubuntu2404-autoinstall
 echo Using Ubuntu 24.04 with Autoinstall...
