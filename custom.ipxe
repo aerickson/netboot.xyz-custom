@@ -120,6 +120,7 @@ boot || goto custom_exit
 
 :ubuntu2404-installer3
 echo Using Ubuntu 24.04 Installer...
+# WORKING!!!
 chain 2404-2.ipxe || goto custom
 
 :ubuntu2404-installer2

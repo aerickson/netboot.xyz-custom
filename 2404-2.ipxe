@@ -1,5 +1,8 @@
 #!ipxe
 
+# copy of netboot.xyz's 2404 installer
+# WORKING!
+
 # Set variables
 set arch amd64
 set codename noble
