@@ -1,7 +1,8 @@
 #!ipxe
 
-# copy of netboot.xyz's 2404 installer
-# WORKING!
+# copy of netboot.xyz's 2404 installer (with autoinstall)
+# status: not working, keyboard issues... not loading autoinstall
+
 
 # Set variables
 set arch amd64

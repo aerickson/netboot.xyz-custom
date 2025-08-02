@@ -161,6 +161,7 @@ chain 2404-server-auto.ipxe || goto custom
 # boot || goto custom_exit
 
 :ubuntu2404-desktop-installer
+# status: not working. i forget why.
 echo Using Ubuntu 24.04 Desktop Installer...
 #  console=tty0 console=ttyS0,115200n8
 set base_url http://releng-pxe1.test.releng.mdc1.mozilla.com/manual_downloads/ubuntu-24.04.2-netboot-amd64
