@@ -173,4 +173,5 @@ boot || goto custom
 
 
 :ubuntu2404-desktop-installer2
+# status: not working, keyboard issues
 chain 2404-desktop.ipxe || goto custom
