@@ -17,6 +17,7 @@ item ubuntu1804-data.mdc1 ${space} Run Installer - MDC1
 item --gap Ubuntu 24.04
 # item ubuntu2404-autoinstall ${space} Image with Autoinstall
 item ubuntu2404-installer ${space} Run Installer - Try 45
+item ubuntu2404-installer3 ${space} Run Installer - 8/1/2025
 # item ubuntu2404-installer2 ${space} Run Installer - Advanced
 item --gap Ubuntu 24.04 Desktop
 item ubuntu2404-desktop-installer ${space} Run Desktop Installer
@@ -116,6 +117,10 @@ kernel https://github.com/netbootxyz/ubuntu-squash/releases/download/24.04.2-dac
 initrd https://github.com/netbootxyz/ubuntu-squash/releases/download/24.04.2-dac09526/initrd
 boot || goto custom_exit
 
+
+:ubuntu2404-installer3
+echo Using Ubuntu 24.04 Installer...
+chain 2404-2.ipxe || goto custom
 
 :ubuntu2404-installer2
 echo Using Ubuntu 24.04 Installer...
