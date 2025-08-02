@@ -165,8 +165,7 @@ echo Using Ubuntu 24.04 Desktop Installer...
 #  console=tty0 console=ttyS0,115200n8
 set base_url http://releng-pxe1.test.releng.mdc1.mozilla.com/manual_downloads/ubuntu-24.04.2-netboot-amd64
 set ubuntu_iso_url http://releng-pxe1.test.releng.mdc1.mozilla.com/ubuntu/ubuntu-24.04.2-live-server-amd64.iso
-imgargs linux root=/dev/ram0 ramdisk_size=3500000 cloud-config-url=/dev/null ip=dhcp url=${ubuntu_iso_url}
-kernel ${base_url}/linux
+kernel ${base_url}/linux root=/dev/ram0 ramdisk_size=3500000 cloud-config-url=/dev/null ip=dhcp url=${ubuntu_iso_url}
 initrd ${base_url}/initrd
 boot || goto custom_exit
 
