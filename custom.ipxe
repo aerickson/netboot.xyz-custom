@@ -15,10 +15,8 @@ item ubuntu1804-preseed ${space} Image with Preseed
 item ubuntu1804-ubuntu ${space} Run Installer - archive.ubuntu.com
 item ubuntu1804-data.mdc1 ${space} Run Installer - MDC1
 item --gap Ubuntu 24.04
-# item ubuntu2404-autoinstall ${space} Image with Autoinstall
-item ubuntu2404-installer ${space} Run Installer - Try 45
-item ubuntu2404-installer3 ${space} Run Installer - 8/1/2025
-# item ubuntu2404-installer2 ${space} Run Installer - Advanced
+item ubuntu2404-installer3 ${space} Run Installer - Remote
+# item ubuntu2404-installer4 ${space} Run Installer - MDC1
 item --gap Ubuntu 24.04 Desktop
 item ubuntu2404-desktop-installer ${space} Run Desktop Installer
 choose custom_choice || goto custom_exit
